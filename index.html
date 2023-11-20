@@ -18,11 +18,15 @@
   <body>
     <div id="app">
       <header>
-        <h1>Github Favorites</h1>
+        <img src="./assets/gitFavIcon.svg" alt="Ícone GitFav" />
+
         <div class="search">
-          <label for="searchInput" class="srOnly">Usuário do Github</label>
-          <input type="text" id="searchInput" placeholder="Digite o usuário" />
-          <button>&plus;</button>
+          <label for="searchInput" class="srOnly">Github Username</label>
+          <input type="text" id="searchInput" placeholder="Type username" />
+          <button>
+            <img src="./assets/vector.svg" alt="Estrela de favorito" />
+            <p>Favorite</p>
+          </button>
         </div>
       </header>
       <table>
@@ -31,7 +35,7 @@
             <th>User</th>
             <th>Repository</th>
             <th>Followers</th>
-            <th></th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -42,18 +46,41 @@
                 alt="Imagem do usuário"
               />
               <a href="https://github.com/gabrielscoti42" target="_blank">
-                <p>Gabriel Scoti </p>
+                <p>Gabriel Scoti</p>
                 <span>gabrielscoti42</span>
               </a>
             </td>
             <td class="repositories">11</td>
             <td class="followers">0</td>
             <td>
-              <button class="remove">&times;</button>
+              <button class="remove">Remove</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="user">
+              <img
+                src="https://github.com/gabrielscoti42.png"
+                alt="Imagem do usuário"
+              />
+              <a href="https://github.com/gabrielscoti42" target="_blank">
+                <p>Gabriel Scoti</p>
+                <span>gabrielscoti42</span>
+              </a>
+            </td>
+            <td class="repositories">11</td>
+            <td class="followers">0</td>
+            <td>
+              <button class="remove">Remove</button>
             </td>
           </tr>
         </tbody>
       </table>
+      <div class="modalWrapper open" >
+        <div class="emptyState">
+          <img src="./assets/star.svg" alt="Imagem de uma estrela" />
+          <p>Nenhum favorito ainda</p>
+        </div>
+      </div>
     </div>
   </body>
 </html>
