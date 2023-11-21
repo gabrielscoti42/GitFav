@@ -35,6 +35,7 @@ body * {
 }
 
 #app {
+
     padding: 2rem;
     max-width: 800px;
     margin: 0 auto;
@@ -175,8 +176,8 @@ td .remove {
     inset: 0;
     display: grid;
     place-content: center;
-    max-width: 76rem;
-    max-height: 22rem;
+    max-width: 80rem;
+    height: 70vh;
     margin: auto;
 
     opacity: 0;
