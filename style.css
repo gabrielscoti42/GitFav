@@ -20,6 +20,7 @@
     --bgInput: #06181C;
     --white: #fff;
     --rmvBtn: red;
+    --rmvBtnHover: rgb(235, 87, 87);
 }
 
 /* * */
@@ -161,10 +162,16 @@ td.user a p {
 }
   
 td .remove {
+    color: var(--rmvBtn);
     background: none;
     border: none;
+    font-weight: bold;
   
-    color: var(--rmvBtn);
+    cursor: pointer;
+}
+
+td .remove:hover {
+    color: var(--rmvBtnHover)
 }
 
 /* Resources */

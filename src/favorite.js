@@ -1,32 +1,41 @@
+export class githubUser {
+    static search(username) {
+        const endpoint = `https://api.github.com/users/${username}`
+
+        return fetch(endpoint).then(data => data.json()).then(({login, name, public_repos, followers}) => ({
+            login,
+            name,
+            public_repos, 
+            followers
+        })) 
+    }
+}
+
 export class favorites { 
     constructor(root) {
         this.root = document.querySelector(root)
         this.load()
+        githubUser.search('gabrielscoti42').then(user => console.log(user))
     }
 
     load() {
-        this.entries = [{
-            login: "gabrielscoti42", 
-            name: "Gabriel Scoti",
-            public_repos: "11",
-            followers: "0",
-        },
-        {
-            login: "gabrielscoti42", 
-            name: "Gabriel Scoti",
-            public_repos: "11",
-            followers: "0",
-        },
-    ]
+        this.entries = JSON.parse(localStorage.getItem('@github-favorites:')) || []
+    }
+
+    delete(user) {
+        const filteredEntries = this.entries.filter(entry => entry.login !== user.login)
+        
+        this.entries = filteredEntries
+        this.update()
     }
 }
 
 export class favoritesView extends favorites {
     constructor(root) {
         super(root)
-
+        
         this.tbody = this.root.querySelector("table tbody")
-
+        
         this.update()
     }
 
@@ -39,9 +48,16 @@ export class favoritesView extends favorites {
             row.querySelector('.user img').src = `https://github.com/${user.login}.png`
             row.querySelector('.user img').alt = `Imagem de ${user.name}`
             row.querySelector('.user p').textContent = user.name
-            row.querySelector('.user span').textContent = user.public_repos
+            row.querySelector('.user span').textContent = user.login
             row.querySelector('.repositories').textContent = user.public_repos
             row.querySelector('.followers').textContent = user.followers
+
+            row.querySelector('.remove').onclick = () => {
+                const isOk = confirm('Você quer mesmo excluir este usuário?')
+                if(isOk) {
+                    this.delete(user)
+                }
+            }
 
             this.tbody.append(row)
         })
