@@ -179,8 +179,6 @@ td .remove:hover {
 .modalWrapper {
     background-color: var(--bgRowEven);
     border: 1px solid var(--bgBtnColor);
-    position: absolute;
-    inset: 0;
     display: grid;
     place-content: center;
     max-width: 80rem;

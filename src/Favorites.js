@@ -1,6 +1,5 @@
 import { GithubUser } from "./githubuser.js"
 
-const wrapper = document.querySelector(".modalWrapper")
 
 export class Favorites { 
     constructor(root) {
@@ -8,11 +7,18 @@ export class Favorites {
         this.load()
     }
 
+    checkEmpty() {
+    const wrapper = document.querySelector(".modalWrapper")
+    const users = this.entries.length
+
+        if(users == 0) {
+        wrapper.classList.add("open")
+        }
+    }
+
     load() {
         this.entries = JSON.parse(localStorage.getItem('@github-favorites:')) || []
-        if(this.entries.length == 0) {
-            wrapper.classList.add("open")
-        }
+        this.checkEmpty()
     }
 
     save() {
@@ -31,9 +37,9 @@ export class Favorites {
                 throw new Error(`User doesn't exist`)
             }
             this.entries = [user, ...this.entries]
+            document.querySelector(".modalWrapper").classList.remove("open")
             this.update()
             this.save()
-            wrapper.classList.remove("open")
         } catch(error) {
             alert(error.message)
         }
@@ -45,6 +51,7 @@ export class Favorites {
         this.entries = filteredEntries
         this.update()
         this.save()
+        this.checkEmpty()
     }
 }
 
