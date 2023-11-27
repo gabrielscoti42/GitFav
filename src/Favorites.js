@@ -1,5 +1,7 @@
 import { GithubUser } from "./githubuser.js"
 
+const wrapper = document.querySelector(".modalWrapper")
+
 export class Favorites { 
     constructor(root) {
         this.root = document.querySelector(root)
@@ -8,6 +10,9 @@ export class Favorites {
 
     load() {
         this.entries = JSON.parse(localStorage.getItem('@github-favorites:')) || []
+        if(this.entries.length == 0) {
+            wrapper.classList.add("open")
+        }
     }
 
     save() {
@@ -17,7 +22,6 @@ export class Favorites {
     async add(username) {
         try {
             const userExists = this.entries.find(entry => entry.login === username)
-
             if(userExists) {
                 throw new Error('User already exists')
             }
@@ -26,10 +30,10 @@ export class Favorites {
             if(user.login === undefined) {
                 throw new Error(`User doesn't exist`)
             }
-            
             this.entries = [user, ...this.entries]
             this.update()
             this.save()
+            wrapper.classList.remove("open")
         } catch(error) {
             alert(error.message)
         }
@@ -70,7 +74,7 @@ export class FavoritesView extends Favorites {
 
             row.querySelector('.user img').src = `https://github.com/${user.login}.png`
             row.querySelector('.user img').alt = `Imagem de ${user.name}`
-            row.querySelector('.user a').href = `https://github.com/${user.name}`
+            row.querySelector('.user a').href = `https://github.com/${user.login}`
             row.querySelector('.user p').textContent = user.name
             row.querySelector('.user span').textContent = user.login
             row.querySelector('.repositories').textContent = user.public_repos
